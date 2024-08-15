@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!---source github url:https://github.com/Maclinz/JS_CSS_PortfolioProject/blob/master/index.html-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -225,6 +224,122 @@
                 </div>
             </div>
         </section>
+        <section class="section sec5 blog" id="blog">
+            <div class="blog-posts blogs-content blog-active" id="blog-menu">
+                <div class="main-title">
+                    <h2>My <span>Blogs</span><span class="bg-text">My Blogs</span></h2>
+                </div>
+                <div class="blogs">
+                    <div class="blog article">
+                        <a onclick="openBlogPost(this.id)" id="blog1">
+                            <div class="article-data">
+                                <h2 class="title article-title">My First Blog</h2>
+                            </div>
+                            <img src="img\wall-2.jpeg" alt="" class="article-image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-posts blog-post-container container blog-inactive" data-id="blog1">
+                <a class="blog-previous-button" onclick="closeBlogPost()">❮ Previous</a>
+                <div class="blog-post-data">
+                    <h2 class="title blog-post-title">Fetch Api VS Apex Based Integration</h2>
+                </div>
+    
+                <div class="container">
+                    <div class="article-data">
+                        15 August 2024
+                    </div>
+                    <h1>Apex vs JavaScript in Salesforce Integrations</h1>
+                    <p>When deciding between using <strong>Apex</strong> and <strong>JavaScript (JS)</strong> for integrations in Salesforce, it's important to weigh their strengths and limitations carefully.</p>
+
+                    <h2>Apex</h2>
+                    <p>Apex offers a more secure environment for handling sensitive data because no authentication information needs to be sent to the browser. This ensures that your credentials and other sensitive data remain safe from exposure. Additionally, Apex does not face any Cross-Origin Resource Sharing (CORS) restrictions, which can often complicate API integrations in JavaScript by limiting which domains can make requests to your resources.</p>
+                    <p>However, Apex comes with its own set of challenges. It has strict limits on the amount of data that can be sent in and out (ingress and egress bandwidth), how long an API call can last (callout timeout limits), and how much processing power can be used (CPU limits). These limitations can make it difficult to work with larger data sets or to perform complex operations. Moreover, Apex can only access resources that are available on the public internet. If you need to access internal systems that aren't exposed publicly, Apex won’t be suitable.</p>
+
+                    <h2>JavaScript</h2>
+                    <p>JavaScript, on the other hand, is much more flexible for larger or more complex integrations. With JS, you don't have to worry about hitting callout timeout limits, bandwidth restrictions, memory limits, or CPU constraints. This makes it ideal for handling more extensive data sets or for performing more complex operations that would be hindered by Apex's limits. Furthermore, JS can access intranet resources, which is a critical capability for integrations involving internal systems that aren’t available on the public internet.</p>
+                    <p>However, using JavaScript also introduces some security concerns. Since JS runs in the browser, any authentication information, such as API keys or tokens, must be sent to the browser as well. This means that if the security isn't handled correctly, a knowledgeable user could potentially gain access to these secrets and misuse them to access your API resources. Therefore, extra care must be taken to ensure that authentication is properly managed and that sensitive information is adequately protected.</p>
+
+                    <h2>Examples</h2>
+                    <br>
+
+                    <h3>Example 1: Simple API Call to a Public Service</h3>
+                    <p><strong>Scenario:</strong> You need to integrate Salesforce with a public weather API to retrieve the current weather conditions based on a user's location.</p>
+                    <ul>
+                        <li><strong>Apex:</strong> This is a straightforward scenario where Apex would be a good fit. The API is public, so there’s no need to worry about internal resources. Apex can handle the API call securely without exposing any sensitive information to the browser. The data returned by the API is relatively small, so Apex’s bandwidth and CPU limits won’t be an issue.</li>
+                        <li><strong>JavaScript:</strong> While JS could also handle this, it’s not necessary for such a simple, secure call. Using Apex would be more secure and straightforward.</li>
+                    </ul>
+                    <p><strong>Conclusion:</strong> Use Apex for this integration.</p>
+
+                    <h3>Example 2: Integrating with a Large Internal Database</h3>
+                    <p><strong>Scenario:</strong> You need to integrate Salesforce with an internal company database that’s hosted on the company’s intranet. The integration requires processing large amounts of data and performing complex queries.</p>
+                    <ul>
+                        <li><strong>Apex:</strong> Apex would struggle in this scenario due to its limitations. The data volume could exceed Apex’s bandwidth limits, and the processing could hit CPU limits. Moreover, Apex cannot access internal resources that aren’t exposed to the public internet.</li>
+                        <li><strong>JavaScript:</strong> JS would be a better choice here. It can handle large amounts of data without worrying about CPU or bandwidth limits. Additionally, JS can access intranet resources, making it ideal for integrating with internal systems.</li>
+                    </ul>
+                    <p><strong>Conclusion:</strong> Use JavaScript for this integration.</p>
+
+                    <h3>Example 3: Secure Data Synchronization Between Salesforce and an External CRM</h3>
+                    <p><strong>Scenario:</strong> You need to synchronize data between Salesforce and an external CRM system. The data is sensitive, and the integration involves regular data transfers that must be secure.</p>
+                    <ul>
+                        <li><strong>Apex:</strong> Apex would be well-suited for this scenario because it offers enhanced security. You can handle the data synchronization in the background on the server side, ensuring that no sensitive information is exposed to the browser. The external CRM is publicly accessible, so Apex’s limitation on accessing internal resources is not a concern. You would need to carefully design your integration to stay within Apex’s bandwidth and processing limits, possibly breaking the data transfer into smaller chunks if necessary.</li>
+                        <li><strong>JavaScript:</strong> While JS could technically perform this integration, exposing sensitive data such as API keys or tokens to the browser could be a security risk. This makes it less desirable for scenarios where data security is paramount.</li>
+                    </ul>
+                    <p><strong>Conclusion:</strong> Use Apex for this integration.</p>
+
+                    <h3>Example 4: Interactive UI Feature with External Data</h3>
+                    <p><strong>Scenario:</strong> You need to build an interactive feature in Salesforce where users can dynamically fetch and display data from an external API as they interact with a custom user interface.</p>
+                    <ul>
+                        <li><strong>Apex:</strong> Although Apex could be used to make the API calls, it would involve server-side processing and then returning the data to the UI. This could introduce latency and make the UI less responsive. Additionally, Apex might not be able to handle the real-time data fetch if the user is making multiple calls quickly.</li>
+                        <li><strong>JavaScript:</strong> JS is ideal for this scenario. It can make real-time API calls directly from the browser, enabling a fast, responsive user experience. The only caveat is to ensure that sensitive data (like API keys) is properly secured, perhaps by using OAuth or a secure token mechanism.</li>
+                    </ul>
+                    <p><strong>Conclusion:</strong> Use JavaScript for this integration.</p>
+
+                    <h3>Example 5: Bulk Data Processing from an External System</h3>
+                    <p><strong>Scenario:</strong> You need to periodically process large datasets from an external system and import them into Salesforce.</p>
+                    <ul>
+                        <li><strong>Apex:</strong> Apex would struggle with this due to its CPU and memory limits. If the data is too large or the processing too complex, you would run into governor limits, making this approach impractical.</li>
+                        <li><strong>JavaScript:</strong> JS can handle bulk data processing more effectively without the strict limits imposed by Apex. You could also leverage JS on a client-side or Node.js server to process the data before importing it into Salesforce.</li>
+                    </ul>
+                    <p><strong>Conclusion:</strong> Use JavaScript for this integration.</p>
+                    <p>
+                        <br>
+                        These examples highlight the strengths and limitations of Apex and JavaScript in different integration scenarios. By understanding these, you can make informed decisions about which technology to use in your Salesforce projects.
+                    </p>
+    
+                    <p>
+                        <div class="author d-grid">
+                            <div class="author-about">
+                                <h3 class="author-name">Manuj Pandey</h3>
+                                <p>3x Certified Salesforce Developer || 2x Copado Certified || More than 7 years of experience in Salesforce</p>
+                                <!--div class="company-data">
+                                    <a href="./index.html">
+                                        <h2 class="logo">NewsFlash</h2>
+                                    </a>
+                                    <p class="company-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, iure. Harum, animi dolores, nam, ad magni expedita.</p>
+                                    <ul class="list social-media">
+                                        <li class="list-item">
+                                            <a href="#" class="list-link"><i class="ri-instagram-line"></i></a>
+                                        </li>
+                                        <li class="list-item">
+                                            <a href="#" class="list-link"><i class="ri-facebook-circle-line"></i></a>
+                                        </li>
+                                        <li class="list-item">
+                                            <a href="#" class="list-link"><i class="ri-twitter-line"></i></a>
+                                        </li>
+                                        <li class="list-item">
+                                            <a href="#" class="list-link"><i class="ri-pinterest-line"></i></a>
+                                        </li>
+                                    </ul>
+                                    <span class="copyright-notice">&copy;2021 NewsFlash. All rights reserved.</span>
+                                </div-->
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </section>
         <!--section class="section sec3 portfolio" id="portfolio">
             <div class="main-title">
                 <h2>My <span>Portfolio</span><span class="bg-text">My Work</span></h2>
@@ -325,7 +440,7 @@
                     </div>
                 <!--/div-->
             </div>
-        </section>   
+        </section>
     </main>
 
     <div class="controls">
@@ -335,9 +450,9 @@
         <div class="control control-2" data-id="about">
             <i class="fas fa-user"></i>
         </div>
-        <!--div class="control control-3" data-id="portfolio">
-            <i class="fas fa-briefcase"></i>
-        </div-->
+        <div class="control control-3" data-id="blog">
+            <i class="fas fa-pen"></i>
+        </div>
         <div class="control control-5" data-id="contact">
             <i class="fas fa-envelope-open"></i>
         </div>

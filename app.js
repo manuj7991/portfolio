@@ -23,3 +23,29 @@ function sendEmail() {
     //console.log(href);
     link.setAttribute("href", href);
 }
+
+function openBlogPost(clicked_id){
+
+    document.getElementById("blog-menu").classList.remove("blog-active");
+    [...document.querySelectorAll(".blog-posts")].forEach(item => {
+        if(item.dataset.id === clicked_id){
+            item.classList.remove("blog-inactive");
+            item.classList.add("blog-active");
+        }
+    });
+    document.getElementById("blog-menu").classList.add("blog-inactive");
+}
+
+function closeBlogPost(){
+    if(document.getElementById("blog-menu").classList.contains("blog-inactive")){
+        [...document.querySelectorAll(".blog-posts")].forEach(item => {
+            if(item.classList.contains("blog-active")){
+                document.getElementById("blog-menu").classList.remove("blog-inactive");
+                document.getElementById("blog-menu").classList.add("blog-active");
+                item.classList.remove("blog-active");
+                item.classList.add("blog-inactive");
+            }
+        });
+
+    }
+}
