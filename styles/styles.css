@@ -631,6 +631,10 @@ section{
     padding: 2.5rem;
 }
 
+.blog-timeline{
+    grid-template-columns: 1fr;
+    padding-bottom: 6rem;
+}
 
 /* Blog post */
 .blog-post{
